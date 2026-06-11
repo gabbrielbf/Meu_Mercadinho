@@ -1,5 +1,8 @@
 import os
 
+def pagar_as_compras():
+    pass
+
 def exibir_mercado():
     """ Função para exibir e selecionar 
     a compra do usuário """
@@ -15,7 +18,55 @@ def exibir_mercado():
     return comprar
 
 def exibir_frutas():
-    pass
+    """ Função para exibir as 
+    frutas disponíveis """
+
+    print()
+    print('Estas são as frutas disponíveis: ')
+    print('-' * 35)
+    frutas = estoque_do_mercado[0][1]
+
+    for fruta, preco in frutas.items():
+        preco_formatato = f'{preco:.2f}'
+        print(f'Produto - {fruta} | Preço: {preco_formatato.replace('.',',')}')
+    print('-' * 35)
+    print()
+
+    return 
+
+def exibir_carnes():
+    """ Função para exibir as 
+    carnes disponíveis """
+
+    print()
+    print('Estas são as frutas disponíveis: ')
+    print('-' * 35)
+    carnes = estoque_do_mercado[0][2]
+
+    for carne, preco in carnes.items():
+        preco_formatato = f'{preco:.2f}'
+        print(f'Produto - {carne} | Preço: {preco_formatato.replace('.',',')}')
+    print('-' * 35)
+    print()
+
+    return 
+
+def exibir_massas():
+    """ Função para exibir as 
+    massas disponíveis """
+
+    print()
+    print('Estas são as frutas disponíveis: ')
+    print('-' * 35)
+    massas = estoque_do_mercado[0][3]
+
+    for massa, preco in massas.items():
+        preco_formatato = f'{preco:.2f}'
+        print(f'Produto - {massa} | Preço: {preco_formatato.replace('.',',')}')
+    print('-' * 35)
+    print()
+
+    return 
 
 
 estoque_do_mercado = [{1:{'Maçã': 2.30, 'Banana': 2.00, 'Melancia': 14.00}, 
@@ -27,15 +78,25 @@ carrinho = 0.0
 valor_da_compra = 0.0
 
 while True:
-    os.system('cls')
+    #os.system('cls')
     match exibir_mercado():
         case 1:
             exibir_frutas()
-            pass
+            frutas = estoque_do_mercado[0][1]
+            compra_cliente = input('O que deseja comprar deste setor: ').title()
+            
         case 2:
-            pass
+            exibir_carnes()
+            carnes = estoque_do_mercado[0][2]
+            compra_cliente = input('O que deseja comprar deste setor: ').title()
+            
         case 3:
-            pass
+            exibir_massas()
+            massas = estoque_do_mercado[0][3]
+            compra_cliente = input('O que deseja comprar deste setor: ').title()
+            
         case _:
-            pass
+            print('Infelizmente não temos este item.')
+            continue
 
+pagar_as_compras()
