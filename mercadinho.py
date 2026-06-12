@@ -2,7 +2,7 @@ import os
 import time
 
 def pagar_as_compras():
-    print('----- Bem vindo ao CAIXA! -----')
+    print('------- Bem vindo ao CAIXA! -------')
     print(f'Sua compra deu: R$[{valor_da_compra}]')
     print(f'Você tem R$[{meu_saldo + valor_da_compra}] na conta.')
     print('Qual é a forma de pagamento?')
@@ -30,9 +30,9 @@ def pagar_as_compras():
             print('Pagamento no cartão tem 10% juros!')
             print(f'Sua compra deu: R$[{valor_da_compra:.2f}]')
             time.sleep(0.7)
-            print(f'Foi descontado da sua carteira: {juros:.2f}')
+            print(f'Foi descontado da sua carteira: R$[{juros:.2f}]')
             time.sleep(0.7)
-            print(f'Sobrou: R$[{meu_saldo - (juros):.2f}]')
+            print(f'Sobrou: R$[{(meu_saldo + valor_da_compra) - juros:.2f}]')
             time.sleep(0.7)
             break
         else:
@@ -55,7 +55,7 @@ def exibir_mercado():
     a compra do usuário """
 
     print()
-    print('----- Bem vindo ao MERCADO! -----')
+    print('------ Bem vindo ao MERCADO! ------')
     print('Boa tarde Sr.(a), o que deseja comprar? ')
     print('-' * 35)
     print('1 - Frutas')
@@ -70,7 +70,6 @@ def exibir_frutas():
     """ Função para exibir as 
     frutas disponíveis """
 
-    print()
     print('Estas são as FRUTAS disponíveis: ')
     print('-' * 35)
     frutas = estoque_do_mercado[0][1]
@@ -87,7 +86,7 @@ def exibir_carnes():
     """ Função para exibir as 
     carnes disponíveis """
 
-    print()
+    
     print('Estas são as CARNES disponíveis: ')
     print('-' * 35)
     carnes = estoque_do_mercado[0][2]
@@ -104,7 +103,6 @@ def exibir_massas():
     """ Função para exibir as 
     massas disponíveis """
 
-    print()
     print('Estas são as MASSAS disponíveis: ')
     print('-' * 35)
     massas = estoque_do_mercado[0][3]
