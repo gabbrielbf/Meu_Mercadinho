@@ -21,7 +21,7 @@ def exibir_frutas():
     frutas disponíveis """
 
     print()
-    print('Estas são as frutas disponíveis: ')
+    print('Estas são as FRUTAS disponíveis: ')
     print('-' * 35)
     frutas = estoque_do_mercado[0][1]
 
@@ -38,7 +38,7 @@ def exibir_carnes():
     carnes disponíveis """
 
     print()
-    print('Estas são as frutas disponíveis: ')
+    print('Estas são as CARNES disponíveis: ')
     print('-' * 35)
     carnes = estoque_do_mercado[0][2]
 
@@ -55,7 +55,7 @@ def exibir_massas():
     massas disponíveis """
 
     print()
-    print('Estas são as frutas disponíveis: ')
+    print('Estas são as MASSAS disponíveis: ')
     print('-' * 35)
     massas = estoque_do_mercado[0][3]
 
@@ -67,20 +67,20 @@ def exibir_massas():
 
     return 
 
-def Oque_comprar(Oque_comprar):
+def qual_fruta_comprar(Oque_comprar):
     """ Função para definir, subtrair e adicionar
      o produto comprado pelo usuário """
 
     global valor_da_compra, meu_saldo
     frutas = estoque_do_mercado[0][1]
-
+    
     match Oque_comprar:
         case 'Maçã':
             print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
             print('-' * 35)
             for fruta, preco in frutas.items():
                 if Oque_comprar == fruta:
-                    carrinho.append(fruta)
+                    carrinho.append(fruta) 
                     valor_da_compra += preco
                     meu_saldo -= valor_da_compra
                     preco_formatato = f'{preco:.2f}'
@@ -115,7 +115,111 @@ def Oque_comprar(Oque_comprar):
             print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
             print('-' * 35)
         case _:
-            print('Não temos essa fruta em nosso estoque.')
+            print(f'Não temos ({Oque_comprar}) em nosso estoque.')
+            print()
+    return
+
+def qual_carne_comprar(Oque_comprar):
+    """ Função para definir, subtrair e adicionar
+     o produto comprado pelo usuário """
+
+    global valor_da_compra, meu_saldo
+    carnes = estoque_do_mercado[0][2]
+    
+    match Oque_comprar:
+        case 'Alcatra':
+            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
+            print('-' * 35)
+            for carne, preco in carnes.items():
+                if Oque_comprar == carne:
+                    carrinho.append(carne)
+                    valor_da_compra += preco
+                    meu_saldo -= valor_da_compra
+                    preco_formatato = f'{preco:.2f}'
+            print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
+            preco_formatato = f'{meu_saldo:.2f}'
+            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
+            print('-' * 35)
+        case 'Picanha':
+            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
+            print('-' * 35)
+            for carne, preco in carnes.items():
+                if Oque_comprar == carne:
+                    carrinho.append(carne)
+                    valor_da_compra += preco
+                    meu_saldo -= valor_da_compra
+                    preco_formatato = f'{preco:.2f}'
+            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
+            preco_formatato = f'{meu_saldo:.2f}'
+            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
+            print('-' * 35)
+        case 'Acem':
+            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
+            print('-' * 35)
+            for carne, preco in carnes.items():
+                if Oque_comprar == carne:
+                    carrinho.append(carne)
+                    valor_da_compra += preco
+                    meu_saldo -= valor_da_compra
+                    preco_formatato = f'{preco:.2f}'
+            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
+            preco_formatato = f'{meu_saldo:.2f}'
+            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
+            print('-' * 35)
+        case _:
+            print(f'Não temos ({Oque_comprar}) em nosso estoque.')
+            print()
+    return
+
+def qual_massa_comprar(Oque_comprar):
+    """ Função para definir, subtrair e adicionar
+     o produto comprado pelo usuário """
+
+    global valor_da_compra, meu_saldo
+    massas = estoque_do_mercado[0][3]
+    
+    match Oque_comprar:
+        case 'Arroz':
+            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
+            print('-' * 35)
+            for massa, preco in massas.items():
+                if Oque_comprar == massa:
+                    carrinho.append(massa)
+                    valor_da_compra += preco
+                    meu_saldo -= valor_da_compra
+                    preco_formatato = f'{preco:.2f}'
+            print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
+            preco_formatato = f'{meu_saldo:.2f}'
+            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
+            print('-' * 35)
+        case 'Macarrão':
+            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
+            print('-' * 35)
+            for massa, preco in massas.items():
+                if Oque_comprar == massa:
+                    carrinho.append(massa)
+                    valor_da_compra += preco
+                    meu_saldo -= valor_da_compra
+                    preco_formatato = f'{preco:.2f}'
+            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
+            preco_formatato = f'{meu_saldo:.2f}'
+            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
+            print('-' * 35)
+        case 'Feijão':
+            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
+            print('-' * 35)
+            for massa, preco in massas.items():
+                if Oque_comprar == massa:
+                    carrinho.append(massa)
+                    valor_da_compra += preco
+                    meu_saldo -= valor_da_compra
+                    preco_formatato = f'{preco:.2f}'
+            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
+            preco_formatato = f'{meu_saldo:.2f}'
+            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
+            print('-' * 35)
+        case _:
+            print(f'Não temos ({Oque_comprar}) em nosso estoque.')
             print()
     return
 
@@ -132,21 +236,17 @@ while True:
     match exibir_mercado():
         case 1:
             exibir_frutas()
-            compra_cliente = input('O que deseja comprar deste setor: ').title()
-            Oque_comprar(compra_cliente)
-            
+            oque_comprar = input('O que deseja comprar deste setor: ').title()
+            qual_fruta_comprar(oque_comprar)
         case 2:
             exibir_carnes()
-            carnes = estoque_do_mercado[0][2]
-            compra_cliente = input('O que deseja comprar deste setor: ').title()
-            
+            oque_comprar = input('O que deseja comprar deste setor: ').title()
+            qual_carne_comprar(oque_comprar)
         case 3:
             exibir_massas()
-            massas = estoque_do_mercado[0][3]
-            compra_cliente = input('O que deseja comprar deste setor: ').title()
-            
+            oque_comprar = input('O que deseja comprar deste setor: ').title()
+            qual_massa_comprar(oque_comprar)
         case _:
             print('Infelizmente não temos este item.')
             continue
-
 pagar_as_compras()
