@@ -1,306 +1,142 @@
 import os
 import time
 
-def pagar_as_compras():
-    print('------- Bem vindo ao CAIXA! -------')
-    print(f'Sua compra deu: R$[{valor_da_compra}]')
-    print(f'Você tem R$[{meu_saldo + valor_da_compra}] na conta.')
-    print('Qual é a forma de pagamento?')
-    print('-' * 35)
-    print('1 - Dinheiro')
-    print('2 - Cartão')
-    print('-' * 35)
+# Funções suporte
+def limpar_tela():
+    """Limpa o terminal para manter a interface organizada."""
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def ler_opcao_numerica(mensagem):
+    """Solicita um número ao usuário e trata erros caso ele digite algo inválido."""
 
     while True:
-        pagamento = int(input('Digite aqui ---> '))
-        juros = valor_da_compra * 1.1
+        try:
+            return int(input(mensagem))
+        except ValueError:
+            print("Erro: Por favor, digite apenas números válidos.")
 
-        if pagamento == 1:
-            print()
-            print('Pagamento a vista não tem juros!')
-            print(f'Sua compra deu: R$[{valor_da_compra}]')
-            time.sleep(0.7)
-            print(f'Foi descontado da sua carteira: {valor_da_compra}')
-            time.sleep(0.7)
-            print(f'Sobrou: R$[{meu_saldo - valor_da_compra}]')
-            time.sleep(0.7)
-            break
-        elif pagamento == 2:
-            print()
-            print('Pagamento no cartão tem 10% juros!')
-            print(f'Sua compra deu: R$[{valor_da_compra:.2f}]')
-            time.sleep(0.7)
-            print(f'Foi descontado da sua carteira: R$[{juros:.2f}]')
-            time.sleep(0.7)
-            print(f'Sobrou: R$[{(meu_saldo + valor_da_compra) - juros:.2f}]')
-            time.sleep(0.7)
-            break
-        else:
-            print('Não possuímos esta forma de pagamento.')
-            print()
-            continue
-    print()
-    return
+# Estoque mercado
+estoque_do_mercado = {
+    1: {'Maçã': 2.30, 'Banana': 2.00, 'Melancia': 14.00}, 
+    2: {'Alcatra': 33.50, 'Picanha': 65.00, 'Acem': 24.75}, 
+    3: {'Arroz': 6.50, 'Macarrão': 4.35, 'Feijão': 12.60}
+}
 
-def continuar_comprando(comprar_mais):
-    print(f'Sua decisao foi [{comprar_mais.upper()}]')
-    if comprar_mais == 's':
-        comprar_mais = True
-    else:
-        comprar_mais = False
-    return comprar_mais
-
-def exibir_mercado():
-    """ Função para exibir e selecionar 
-    a compra do usuário """
-
-    print()
-    print('------ Bem vindo ao MERCADO! ------')
-    print('Boa tarde Sr.(a), o que deseja comprar? ')
-    print('-' * 35)
-    print('1 - Frutas')
-    print('2 - Carnes')
-    print('3 - Massas')
-    print('-' * 35)
-    comprar = int(input('---> '))
-
-    return comprar
-
-def exibir_frutas():
-    """ Função para exibir as 
-    frutas disponíveis """
-
-    print('Estas são as FRUTAS disponíveis: ')
-    print('-' * 35)
-    frutas = estoque_do_mercado[0][1]
-
-    for fruta, preco in frutas.items():
-        preco_formatato = f'{preco:.2f}'
-        print(f'Produto - {fruta} | Preço: {preco_formatato.replace('.',',')}')
-    print('-' * 35)
-    print()
-
-    return 
-
-def exibir_carnes():
-    """ Função para exibir as 
-    carnes disponíveis """
-
-    
-    print('Estas são as CARNES disponíveis: ')
-    print('-' * 35)
-    carnes = estoque_do_mercado[0][2]
-
-    for carne, preco in carnes.items():
-        preco_formatato = f'{preco:.2f}'
-        print(f'Produto - {carne} | Preço: {preco_formatato.replace('.',',')}')
-    print('-' * 35)
-    print()
-
-    return 
-
-def exibir_massas():
-    """ Função para exibir as 
-    massas disponíveis """
-
-    print('Estas são as MASSAS disponíveis: ')
-    print('-' * 35)
-    massas = estoque_do_mercado[0][3]
-
-    for massa, preco in massas.items():
-        preco_formatato = f'{preco:.2f}'
-        print(f'Produto - {massa} | Preço: {preco_formatato.replace('.',',')}')
-    print('-' * 35)
-    print()
-
-    return 
-
-def qual_fruta_comprar(Oque_comprar):
-    """ Função para definir, subtrair e adicionar
-     o produto comprado pelo usuário """
-
-    global valor_da_compra, meu_saldo
-    frutas = estoque_do_mercado[0][1]
-    
-    match Oque_comprar:
-        case 'Maçã':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for fruta, preco in frutas.items():
-                if Oque_comprar == fruta:
-                    carrinho.append(fruta) 
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case 'Banana':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for fruta, preco in frutas.items():
-                if Oque_comprar == fruta:
-                    carrinho.append(fruta)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case 'Melancia':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for fruta, preco in frutas.items():
-                if Oque_comprar == fruta:
-                    carrinho.append(fruta)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case _:
-            print(f'Não temos ({Oque_comprar}) em nosso estoque.')
-            print()
-    return
-
-def qual_carne_comprar(Oque_comprar):
-    """ Função para definir, subtrair e adicionar
-     o produto comprado pelo usuário """
-
-    global valor_da_compra, meu_saldo
-    carnes = estoque_do_mercado[0][2]
-    
-    match Oque_comprar:
-        case 'Alcatra':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for carne, preco in carnes.items():
-                if Oque_comprar == carne:
-                    carrinho.append(carne)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case 'Picanha':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for carne, preco in carnes.items():
-                if Oque_comprar == carne:
-                    carrinho.append(carne)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case 'Acem':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for carne, preco in carnes.items():
-                if Oque_comprar == carne:
-                    carrinho.append(carne)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case _:
-            print(f'Não temos ({Oque_comprar}) em nosso estoque.')
-            print()
-    return
-
-def qual_massa_comprar(Oque_comprar):
-    """ Função para definir, subtrair e adicionar
-     o produto comprado pelo usuário """
-
-    global valor_da_compra, meu_saldo
-    massas = estoque_do_mercado[0][3]
-    
-    match Oque_comprar:
-        case 'Arroz':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for massa, preco in massas.items():
-                if Oque_comprar == massa:
-                    carrinho.append(massa)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case 'Macarrão':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for massa, preco in massas.items():
-                if Oque_comprar == massa:
-                    carrinho.append(massa)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case 'Feijão':
-            print(f'o produto ({Oque_comprar}) foi adicionado ao carrinho com sucesso')
-            print('-' * 35)
-            for massa, preco in massas.items():
-                if Oque_comprar == massa:
-                    carrinho.append(massa)
-                    valor_da_compra += preco
-                    meu_saldo -= preco
-                    preco_formatato = f'{preco:.2f}'
-            print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
-            preco_formatato = f'{meu_saldo:.2f}'
-            print(f'Seu saldo atual é de: {preco_formatato.replace('.',',')}')
-            print('-' * 35)
-        case _:
-            print(f'Não temos ({Oque_comprar}) em nosso estoque.')
-            print()
-    return
-
-estoque_do_mercado = [{1:{'Maçã': 2.30, 'Banana': 2.00, 'Melancia': 14.00}, 
-                       2:{'Alcatra': 33.50, 'Picanha': 65.00, 'Acem': 24.75}, 
-                       3:{'Arroz': 6.50, 'Macarrão': 4.35, 'Feijão': 12.60}}]
-
-meu_saldo = 150
+saldo_inicial = 150.0  # Saldo fixo até o momento do pagamento
 carrinho = []
-valor_da_compra = 0
+valor_da_compra = 0.0
 
-while True:
-    #os.system('cls')
-    match exibir_mercado():
-        case 1:
-            exibir_frutas()
-            oque_comprar = input('O que deseja comprar deste setor: ').title()
-            qual_fruta_comprar(oque_comprar)
-        case 2:
-            exibir_carnes()
-            oque_comprar = input('O que deseja comprar deste setor: ').title()
-            qual_carne_comprar(oque_comprar)
-        case 3:
-            exibir_massas()
-            oque_comprar = input('O que deseja comprar deste setor: ').title()
-            qual_massa_comprar(oque_comprar)
-        case _:
-            print('Infelizmente não temos este item.')
-            continue
-    comprar_mais = str(input('Deseja comprar algo mais?[S/N]: ')).lower()
-    if continuar_comprando(comprar_mais) == True and meu_saldo > 0:
-        continue
+# Cerebro do programa, funções lógicas
+def exibir_produtos(setor):
+    """Exibe os produtos disponíveis no setor escolhido com formatação em vírgula."""
+
+    produtos = estoque_do_mercado[setor]
+    print('Estas são as opções disponíveis:')
+    print('-' * 35)
+    for nome, preco in produtos.items():
+        preco_formatado = f'{preco:.2f}'.replace('.', ',')
+        print(f'Produto - {nome:<10} | Preço: R$ {preco_formatado}')
+    print('-' * 35)
+
+def processar_pagamento(total):
+    """Gerencia a escolha da forma de pagamento e aplica juros se necessário."""
+
+    global saldo_inicial
+    print('\nQual é a forma de pagamento?')
+    print('-' * 35)
+    print('1 - Dinheiro (Sem juros)')
+    print('2 - Cartão (10% de juros)')
+    print('-' * 35)
+    
+    forma_pagamento = ler_opcao_numerica('Digite aqui ---> ')
+    
+    total_a_pagar = 0
+    if forma_pagamento == 1:
+        total_a_pagar = total
+        print(f'\nPagamento à vista.')
+    elif forma_pagamento == 2:
+        total_a_pagar = total * 1.1
+        print(f'\nPagamento no cartão (10% juros).')
     else:
+        print("Opção inválida.")
+        return None
+
+    if saldo_inicial >= total_a_pagar:
+        saldo_inicial -= total_a_pagar
+        return total_a_pagar
+    else:
+        print("Saldo insuficiente!")
+        return None
+
+def pagar_as_compras():
+    """Gerencia a visualização do carrinho (agrupado), remoção e finalização."""
+
+    global valor_da_compra
+    while True:
+        limpar_tela()
+        print('------- CAIXA -------')
+        print('Seu carrinho:')
+        
+        # Agrupamento dos itens para exibição
+        contagem = {}
+        for item in carrinho:
+            nome = item["nome"]
+            contagem[nome] = contagem.get(nome, 0) + 1
+            
+        for nome, quantidade in contagem.items():
+            # Busca o preço original de qualquer instância desse item no carrinho
+            preco = next(i['preco'] for i in carrinho if i['nome'] == nome)
+            print(f'{quantidade}x {nome} | Preço unitário: R$ {f"{preco:.2f}".replace(".", ",")}')
+        
+        total_formatado = f'{valor_da_compra:.2f}'.replace('.', ',')
+        saldo_formatado = f'{saldo_inicial:.2f}'.replace('.', ',')
+        print(f'\nTotal da compra: R$ {total_formatado} | Saldo original: R$ {saldo_formatado}')
+        
+        if valor_da_compra == 0:
+            print("Carrinho vazio. Saindo...")
+            return
+
+        print('\n1 - Finalizar Pagamento\n2 - Remover item')
+        opcao = ler_opcao_numerica('Escolha uma opção: ')
+        
+        if opcao == 2:
+            item_nome = input("Digite o nome do produto para remover: ").title()
+            for i in range(len(carrinho) - 1, -1, -1):
+                if carrinho[i]['nome'] == item_nome:
+                    removido = carrinho.pop(i)
+                    valor_da_compra -= removido['preco']
+                    break
+        elif opcao == 1:
+            total_final = processar_pagamento(valor_da_compra)
+            if total_final:
+                print(f"\nCompra finalizada! Valor debitado: R$ {f'{total_final:.2f}'.replace('.', ',')}")
+                break
+
+# --- FLUXO PRINCIPAL ---
+while True:
+    limpar_tela()
+    print('------ Bem vindo ao MERCADO! ------')
+    print(f'Saldo disponível: R$ {f"{saldo_inicial:.2f}".replace(".", ",")}')
+    print('1 - Frutas | 2 - Carnes | 3 - Massas')
+    print('-' * 35)
+    
+    setor_escolhido = ler_opcao_numerica('---> ')
+    
+    if setor_escolhido in estoque_do_mercado:
+        exibir_produtos(setor_escolhido)
+        item_escolhido = input('O que deseja comprar deste setor: ').title()
+        
+        if item_escolhido in estoque_do_mercado[setor_escolhido]:
+            preco = estoque_do_mercado[setor_escolhido][item_escolhido]
+            carrinho.append({'nome': item_escolhido, 'preco': preco})
+            valor_da_compra += preco
+            print(f'\n{item_escolhido} adicionado ao carrinho!')
+        else:
+            print("\nProduto não encontrado.")
+        time.sleep(1)
+    
+    if input('\nDeseja comprar algo mais? [S/N]: ').lower() != 's':
         break
-print()
+
 pagar_as_compras()
