@@ -1,17 +1,67 @@
 import os
+import time
 
 def pagar_as_compras():
-    pass
+    print('----- Bem vindo ao CAIXA! -----')
+    print(f'Sua compra deu: R$[{valor_da_compra}]')
+    print(f'Você tem R$[{meu_saldo + valor_da_compra}] na conta.')
+    print('Qual é a forma de pagamento?')
+    print('-' * 35)
+    print('1 - Dinheiro')
+    print('2 - Cartão')
+    print('-' * 35)
+
+    while True:
+        pagamento = int(input('Digite aqui ---> '))
+        juros = valor_da_compra * 1.1
+
+        if pagamento == 1:
+            print()
+            print('Pagamento a vista não tem juros!')
+            print(f'Sua compra deu: R$[{valor_da_compra}]')
+            time.sleep(0.7)
+            print(f'Foi descontado da sua carteira: {valor_da_compra}')
+            time.sleep(0.7)
+            print(f'Sobrou: R$[{meu_saldo - valor_da_compra}]')
+            time.sleep(0.7)
+            break
+        elif pagamento == 2:
+            print()
+            print('Pagamento no cartão tem 10% juros!')
+            print(f'Sua compra deu: R$[{valor_da_compra:.2f}]')
+            time.sleep(0.7)
+            print(f'Foi descontado da sua carteira: {juros:.2f}')
+            time.sleep(0.7)
+            print(f'Sobrou: R$[{meu_saldo - (juros):.2f}]')
+            time.sleep(0.7)
+            break
+        else:
+            print('Não possuímos esta forma de pagamento.')
+            print()
+            continue
+    print()
+    return
+
+def continuar_comprando(comprar_mais):
+    print(f'Sua decisao foi [{comprar_mais.upper()}]')
+    if comprar_mais == 's':
+        comprar_mais = True
+    else:
+        comprar_mais = False
+    return comprar_mais
 
 def exibir_mercado():
     """ Função para exibir e selecionar 
     a compra do usuário """
 
     print()
+    print('----- Bem vindo ao MERCADO! -----')
     print('Boa tarde Sr.(a), o que deseja comprar? ')
+    print('-' * 35)
     print('1 - Frutas')
     print('2 - Carnes')
     print('3 - Massas')
+    print('-' * 35)
     comprar = int(input('---> '))
 
     return comprar
@@ -82,7 +132,7 @@ def qual_fruta_comprar(Oque_comprar):
                 if Oque_comprar == fruta:
                     carrinho.append(fruta) 
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -95,7 +145,7 @@ def qual_fruta_comprar(Oque_comprar):
                 if Oque_comprar == fruta:
                     carrinho.append(fruta)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -108,7 +158,7 @@ def qual_fruta_comprar(Oque_comprar):
                 if Oque_comprar == fruta:
                     carrinho.append(fruta)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -134,7 +184,7 @@ def qual_carne_comprar(Oque_comprar):
                 if Oque_comprar == carne:
                     carrinho.append(carne)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -147,7 +197,7 @@ def qual_carne_comprar(Oque_comprar):
                 if Oque_comprar == carne:
                     carrinho.append(carne)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -160,7 +210,7 @@ def qual_carne_comprar(Oque_comprar):
                 if Oque_comprar == carne:
                     carrinho.append(carne)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -186,7 +236,7 @@ def qual_massa_comprar(Oque_comprar):
                 if Oque_comprar == massa:
                     carrinho.append(massa)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Essa compra custou: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -199,7 +249,7 @@ def qual_massa_comprar(Oque_comprar):
                 if Oque_comprar == massa:
                     carrinho.append(massa)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -212,7 +262,7 @@ def qual_massa_comprar(Oque_comprar):
                 if Oque_comprar == massa:
                     carrinho.append(massa)
                     valor_da_compra += preco
-                    meu_saldo -= valor_da_compra
+                    meu_saldo -= preco
                     preco_formatato = f'{preco:.2f}'
             print(f'Sua compra atual custa: {preco_formatato.replace('.',',')}')
             preco_formatato = f'{meu_saldo:.2f}'
@@ -249,4 +299,10 @@ while True:
         case _:
             print('Infelizmente não temos este item.')
             continue
+    comprar_mais = str(input('Deseja comprar algo mais?[S/N]: ')).lower()
+    if continuar_comprando(comprar_mais) == True and meu_saldo > 0:
+        continue
+    else:
+        break
+print()
 pagar_as_compras()
