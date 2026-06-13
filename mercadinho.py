@@ -14,7 +14,7 @@ def ler_opcao_numerica(mensagem):
         try:
             return int(input(mensagem))
         except ValueError:
-            print("Erro: Por favor, digite apenas números válidos.")
+            print("[ERRO]: Por favor, digite apenas números válidos.")
 
 # Estoque mercado
 estoque_do_mercado = {
@@ -52,6 +52,7 @@ def processar_pagamento(total):
     forma_pagamento = ler_opcao_numerica('Digite aqui ---> ')
     
     total_a_pagar = 0
+
     if forma_pagamento == 1:
         total_a_pagar = total
         print(f'\nPagamento à vista.')
@@ -66,7 +67,10 @@ def processar_pagamento(total):
         saldo_inicial -= total_a_pagar
         return total_a_pagar
     else:
-        print("Saldo insuficiente!")
+        print('-' * 35)
+        print('Saldo insuficiente!\nTrabalhe mais ou tire algo do carrinho.')
+        print('-' * 35)
+        time.sleep(3)
         return None
 
 def pagar_as_compras():
@@ -91,7 +95,7 @@ def pagar_as_compras():
         
         total_formatado = f'{valor_da_compra:.2f}'.replace('.', ',')
         saldo_formatado = f'{saldo_inicial:.2f}'.replace('.', ',')
-        print(f'\nTotal da compra: R$ {total_formatado} | Saldo original: R$ {saldo_formatado}')
+        print(f'\nTotal da compra: R$ {total_formatado} | Meu saldo: R$ {saldo_formatado}')
         
         if valor_da_compra == 0:
             print("Carrinho vazio. Saindo...")
@@ -112,12 +116,19 @@ def pagar_as_compras():
             if total_final:
                 print(f"\nCompra finalizada! Valor debitado: R$ {f'{total_final:.2f}'.replace('.', ',')}")
                 break
+    print()
+    return
 
-# --- FLUXO PRINCIPAL ---
+# Corpo do programa
 while True:
     limpar_tela()
     print('------ Bem vindo ao MERCADO! ------')
     print(f'Saldo disponível: R$ {f"{saldo_inicial:.2f}".replace(".", ",")}')
+    
+    # Exibição em tempo real do valor no carrinho
+    valor_carrinho_fmt = f'{valor_da_compra:.2f}'.replace(".", ",")
+    print(f'Valor atual no carrinho: R$ {valor_carrinho_fmt}')
+    
     print('1 - Frutas | 2 - Carnes | 3 - Massas')
     print('-' * 35)
     
